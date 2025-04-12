@@ -1,4 +1,3 @@
-import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -18,15 +17,30 @@ def create_app(config_class='config'):
     login_manager.login_view = 'auth.login'
 
     # Register blueprints
+    from app.main import main_bp
     from app.auth import auth_bp
+    app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
 
     # CLI commands
     from app.cli import register_commands
     register_commands(app)
 
+    # Error handlers
+    register_error_handlers(app)
+
     # Create tables
     with app.app_context():
         db.create_all()
 
     return app
+
+def register_error_handlers(app):
+    @app.errorhandler(404)
+    def not_found_error(error):
+        return render_template('errors/404.html'), 404
+
+    @app.errorhandler(500)
+    def internal_error(error):
+        db.session.rollback()
+        return render_template('errors/500.html'), 500
