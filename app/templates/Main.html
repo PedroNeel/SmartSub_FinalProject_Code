@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSub - Teacher Cover Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto+Slab:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        
+</head>
+<body>
+    <div class="bg-slideshow">
+        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-chalkboard-teacher"></i> SmartSub</h1>
+            <nav>
+                <ul>
+                    <li><a href="#dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#teachers"><i class="fas fa-user-graduate"></i> Teachers</a></li>
+                    <li><a href="#substitutes"><i class="fas fa-users"></i> Substitutes</a></li>
+                    <li><a href="#reports"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                    <li><a href="#login"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            <!-- Login/Register Page -->
+            <div id="login-page" class="login-container">
+                <div class="card">
+                    <div id="login-form">
+                        <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="login-email">Email</label>
+                                <input type="email" id="login-email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="login-password">Password</label>
+                                <input type="password" id="login-password" name="password" required>
+                            </div>
+                            <button type="submit" class="btn">Login</button>
+                            <p>Don't have an account? <a href="#" id="show-register">Register here</a></p>
+                        </form>
+                    </div>
+                    
+                    <div id="register-form" style="display: none;">
+                        <h2><i class="fas fa-user-plus"></i> Register</h2>
+                        <form id="registerForm">
+                            <div class="form-group">
+                                <label for="reg-name">First Name</label>
+                                <input type="text" id="reg-name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-surname">Last Name</label>
+                                <input type="text" id="reg-surname" name="surname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-email">School Email</label>
+                                <input type="email" id="reg-email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-password">Password</label>
+                                <input type="password" id="reg-password" name="password" required>
+                                <div class="password-strength">
+                                    <div class="password-strength-bar" id="password-strength-bar"></div>
+                                </div>
+                                <div class="password-hint" id="password-hint">
+                                    Password must be at least 8 characters
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-confirm">Confirm Password</label>
+                                <input type="password" id="reg-confirm" name="confirm" required>
+                                <div class="password-hint" id="confirm-hint"></div>
+                            </div>
+                            <button type="submit" class="btn btn-secondary" id="register-btn" disabled>Register</button>
+                            <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="dashboard hidden">
+                <div class="card">
+                    <h2><i class="fas fa-tachometer-alt"></i> Today's Overview</h2>
+                    <div class="stats">
+                        <div class="stat-card">
+                            <h3>Absent Teachers</h3>
+                            <p class="number">3</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Pending Covers</h3>
+                            <p class="number">1</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Available Subs</h3>
+                            <p class="number">7</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-calendar-times"></i> Today's Absences</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Teacher</th>
+                                <th>Subject</th>
+                                <th>Period</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mr. Smith</td>
+                                <td>Mathematics</td>
+                                <td>Period 2</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td><a href="#" class="btn btn-sm">Assign Cover</a></td>
+                            </tr>
+                            <tr>
+                                <td>Ms. Johnson</td>
+                                <td>Science</td>
+                                <td>Period 3-4</td>
+                                <td><span class="status covered">Covered</span></td>
+                                <td><a href="#" class="btn btn-sm">View Plan</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Teachers Page -->
+            <div id="teachers-page" class="teachers hidden">
+                <div class="card">
+                    <h2><i class="fas fa-user-graduate"></i> Teacher Profiles</h2>
+                    
+                    <div class="teacher-profile">
+                        <div class="teacher-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="teacher-details">
+                            <h3 class="teacher-name">Mr. John Smith</h3>
+                            <div class="teacher-subjects">
+                                <span>Mathematics</span>
+                                <span>Advanced Calculus</span>
+                            </div>
+                            <table class="teacher-schedule">
+                                <thead>
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>Period</th>
+                                        <th>Class</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Monday</td>
+                                        <td>1-2</td>
+                                        <td>Grade 11 Math</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tuesday</td>
+                                        <td>3-4</td>
+                                        <td>Grade 12 Calculus</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wednesday</td>
+                                        <td>2-3</td>
+                                        <td>Grade 10 Math</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="teacher-profile">
+                        <div class="teacher-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="teacher-details">
+                            <h3 class="teacher-name">Ms. Sarah Johnson</h3>
+                            <div class="teacher-subjects">
+                                <span>Science</span>
+                                <span>Chemistry</span>
+                                <span>Physics</span>
+                            </div>
+                            <table class="teacher-schedule">
+                                <thead>
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>Period</th>
+                                        <th>Class</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Monday</td>
+                                        <td>3-4</td>
+                                        <td>Grade 10 Science</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tuesday</td>
+                                        <td>1-2</td>
+                                        <td>Grade 11 Chemistry</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Thursday</td>
+                                        <td>2-3</td>
+                                        <td>Grade 12 Physics</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Substitutes Page -->
+            <div id="substitutes-page" class="substitutes hidden">
+                <div class="card">
+                    <h2><i class="fas fa-users"></i> Substitute Teachers</h2>
+                    
+                    <div class="filters">
+                        <div class="form-group">
+                            <label>Filter by Subject:</label>
+                            <select id="subject-filter">
+                                <option value="">All Subjects</option>
+                                <option value="math">Mathematics</option>
+                                <option value="science">Science</option>
+                                <option value="english">English</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Filter by Distance:</label>
+                            <select id="distance-filter">
+                                <option value="5">5 km</option>
+                                <option value="10">10 km</option>
+                                <option value="20" selected>20 km</option>
+                                <option value="30">30 km</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn" id="apply-filters">Apply Filters</button>
+                    </div>
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Subjects</th>
+                                <th>Distance</th>
+                                <th>Availability</th>
+                                <th>Contact</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mr. Davis</td>
+                                <td>Mathematics, Physics</td>
+                                <td>3.2 km</td>
+                                <td><span class="status available">Available</span></td>
+                                <td>davis@example.com</td>
+                                <td><a href="#" class="btn btn-sm">Select</a></td>
+                            </tr>
+                            <tr>
+                                <td>Ms. Parker</td>
+                                <td>English, History</td>
+                                <td>7.8 km</td>
+                                <td><span class="status available">Available</span></td>
+                                <td>parker@example.com</td>
+                                <td><a href="#" class="btn btn-sm">Select</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Reports Page -->
+            <div id="reports-page" class="reports hidden">
+                <div class="card">
+                    <h2><i class="fas fa-chart-bar"></i> Absence Reports</h2>
+                    
+                    <div class="report-filters">
+                        <div class="form-group">
+                            <label>Date Range:</label>
+                            <input type="date" id="start-date">
+                            <span>to</span>
+                            <input type="date" id="end-date">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Department:</label>
+                            <select id="department-filter">
+                                <option value="">All Departments</option>
+                                <option value="math">Mathematics</option>
+                                <option value="science">Science</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn" id="generate-report">Generate Report</button>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="absenceChart" width="400" height="200"></canvas>
+                    </div>
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Teacher</th>
+                                <th>Department</th>
+                                <th>Absences</th>
+                                <th>Covered</th>
+                                <th>Uncovered</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mr. Smith</td>
+                                <td>Mathematics</td>
+                                <td>5</td>
+                                <td>4</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>Ms. Johnson</td>
+                                <td>Science</td>
+                                <td>3</td>
+                                <td>3</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
